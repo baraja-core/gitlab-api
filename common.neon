@@ -1,0 +1,9 @@
+services:
+	gitLabAPI:
+		factory: Baraja\GitLabApi\GitLabApi(%gitLab.token%)
+		setup:
+			- setCache(@cache.storage)
+
+tracy:
+	bar:
+		- Baraja\GitLabApi\GitLabApiPanel

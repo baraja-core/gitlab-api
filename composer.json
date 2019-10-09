@@ -1,0 +1,22 @@
+{
+	"name": "baraja-core/gitlab-api",
+	"description": "Simple and robust GitLab API wrapper with Tracy debug mode.",
+	"homepage": "https://github.com/baraja-core/gitlab-api",
+	"authors": [
+		{
+			"name": "Jan Barášek",
+			"homepage": "https://baraja.cz"
+		}
+	],
+	"require": {
+		"php": ">=7.1.0",
+		"ext-curl": "*",
+		"nette/caching": "^3.0"
+	},
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+	"minimum-stability": "stable"
+}
