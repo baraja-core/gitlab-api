@@ -9,6 +9,8 @@ Požadavky typu `GET` se automaticky cachují na `12 hodin`, pokud není řečen
 
 Požadavky typu `POST`, `PUT`, `DELETE` a další změnové akce se necachují vůbec a vždy přenášíme veškerá data znovu.
 
+![GitLab Tracy panel](/src/gitlab-api-tracy.png "GitLab Tracy panel")
+
 Instalace
 ---------
 
