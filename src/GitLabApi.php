@@ -10,7 +10,7 @@ use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\Security\User;
 
-class GitLabApi
+final class GitLabApi
 {
 
 	/**
@@ -76,7 +76,7 @@ class GitLabApi
 	 * @return ApiData|ApiData[]
 	 * @throws GitLabApiException
 	 */
-	public function request(string $url, array $data = null, string $cache = '12 hours', string $token = null)
+	public function request(string $url, ?array $data = null, string $cache = '12 hours', ?string $token = null)
 	{
 		$token = $token ? : $this->token;
 		if ($this->validateToken === false) {
@@ -171,7 +171,7 @@ class GitLabApi
 	 * @return ApiData|ApiData[]
 	 * @throws GitLabApiException
 	 */
-	public function changeRequest(string $url, array $data = null, string $method = 'PUT', string $token = null)
+	public function changeRequest(string $url, ?array $data = null, string $method = 'PUT', ?string $token = null)
 	{
 		$token = $token ? : $this->token;
 		if ($this->validateToken === false) {
