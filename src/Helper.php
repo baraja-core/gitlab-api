@@ -5,10 +5,18 @@ declare(strict_types=1);
 namespace Baraja\GitLabApi;
 
 
-class Helper
+final class Helper
 {
 
 	private const FORCE_ARRAY = 0b0001;
+
+	/**
+	 * @throws \Error
+	 */
+	final public function __construct()
+	{
+		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+	}
 
 	/**
 	 * Migrated from Nette/Tracy.
