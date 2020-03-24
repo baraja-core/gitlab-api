@@ -7,8 +7,8 @@ namespace Baraja\GitLabApi;
 
 class GitLabApiException extends \Exception
 {
-
 	public const ERROR_ERROR = 'error';
+
 	public const ERROR_INVALID_TOKEN = 'invalid_token';
 
 	/**
@@ -18,6 +18,7 @@ class GitLabApiException extends \Exception
 	 * @var string[]
 	 */
 	private $errorConfigs;
+
 
 	/**
 	 * @param string $message
@@ -36,6 +37,7 @@ class GitLabApiException extends \Exception
 		}
 	}
 
+
 	/**
 	 * @param string $token
 	 * @throws GitLabApiException
@@ -47,6 +49,7 @@ class GitLabApiException extends \Exception
 		);
 	}
 
+
 	/**
 	 * @return string[]
 	 */
@@ -54,6 +57,7 @@ class GitLabApiException extends \Exception
 	{
 		return $this->errorConfigs;
 	}
+
 
 	/**
 	 * @return string
@@ -67,6 +71,7 @@ class GitLabApiException extends \Exception
 		return self::ERROR_ERROR;
 	}
 
+
 	/**
 	 * @return bool
 	 */
@@ -74,6 +79,7 @@ class GitLabApiException extends \Exception
 	{
 		return $this->getErrorType() === self::ERROR_ERROR;
 	}
+
 
 	/**
 	 * @param string $key
@@ -83,6 +89,7 @@ class GitLabApiException extends \Exception
 	{
 		return isset($this->errorConfigs[$key]);
 	}
+
 
 	/**
 	 * @param string $key
@@ -97,5 +104,4 @@ class GitLabApiException extends \Exception
 
 		return $default;
 	}
-
 }

@@ -7,16 +7,17 @@ namespace Baraja\GitLabApi;
 
 final class Helper
 {
-
 	private const FORCE_ARRAY = 0b0001;
+
 
 	/**
 	 * @throws \Error
 	 */
-	final public function __construct()
+	public function __construct()
 	{
 		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
 	}
+
 
 	/**
 	 * Migrated from Nette/Tracy.
@@ -33,6 +34,7 @@ final class Helper
 
 		return $delta;
 	}
+
 
 	/**
 	 * Migrated from Nette/Utils.
@@ -54,6 +56,7 @@ final class Helper
 
 		return $value;
 	}
+
 
 	/**
 	 * Return last PHP error (notice, warning..)
@@ -80,5 +83,4 @@ final class Helper
 
 		return $return;
 	}
-
 }

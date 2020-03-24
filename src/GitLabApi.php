@@ -13,25 +13,18 @@ use Nette\Security\User;
 final class GitLabApi
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $token;
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $validateToken = false;
 
-	/**
-	 * @var Cache|null
-	 */
+	/** @var Cache|null */
 	private $cache;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $baseUrl = 'https://gitlab.com/api/v4/';
+
 
 	/**
 	 * For valid service you must set $token or Nette user profile.
@@ -50,6 +43,7 @@ final class GitLabApi
 		$this->token = $token;
 	}
 
+
 	/**
 	 * @param string $baseUrl
 	 */
@@ -57,6 +51,7 @@ final class GitLabApi
 	{
 		$this->baseUrl = rtrim($baseUrl, '/') . '/';
 	}
+
 
 	/**
 	 * Use Nette Cache for storage API responses.
@@ -68,6 +63,7 @@ final class GitLabApi
 		$this->cache = new Cache($IStorage, 'gitlab-api');
 	}
 
+
 	/**
 	 * @param string $url
 	 * @param string[]|null $data
@@ -78,7 +74,7 @@ final class GitLabApi
 	 */
 	public function request(string $url, ?array $data = null, string $cache = '12 hours', ?string $token = null)
 	{
-		$token = $token ? : $this->token;
+		$token = $token ?: $this->token;
 		if ($this->validateToken === false) {
 			if ($url !== 'projects' && $this->validateToken($token) === false) {
 				GitLabApiException::tokenIsInvalid($token);
@@ -163,6 +159,7 @@ final class GitLabApi
 		return $body;
 	}
 
+
 	/**
 	 * @param string $url
 	 * @param string[]|null $data
@@ -173,7 +170,7 @@ final class GitLabApi
 	 */
 	public function changeRequest(string $url, ?array $data = null, string $method = 'PUT', ?string $token = null)
 	{
-		$token = $token ? : $this->token;
+		$token = $token ?: $this->token;
 		if ($this->validateToken === false) {
 			if ($url !== 'projects' && $this->validateToken($token) === false) {
 				GitLabApiException::tokenIsInvalid($token);
@@ -264,6 +261,7 @@ final class GitLabApi
 		return $body;
 	}
 
+
 	/**
 	 * @param string $token
 	 * @return bool
@@ -278,6 +276,7 @@ final class GitLabApi
 				&& $response->message === '401 Unauthorized'
 			) === false;
 	}
+
 
 	/**
 	 * @param \stdClass|\stdClass[] $haystack
@@ -307,5 +306,4 @@ final class GitLabApi
 
 		return $haystack;
 	}
-
 }

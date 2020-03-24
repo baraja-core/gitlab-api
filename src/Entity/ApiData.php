@@ -30,6 +30,7 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 		return $obj;
 	}
 
+
 	/**
 	 * Returns an iterator over all items.
 	 */
@@ -38,6 +39,7 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 		return new \RecursiveArrayIterator((array) $this);
 	}
 
+
 	/**
 	 * Returns items count.
 	 */
@@ -45,6 +47,7 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	{
 		return count((array) $this);
 	}
+
 
 	/**
 	 * Replaces or appends a item.
@@ -61,6 +64,7 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 		$this->$key = $value;
 	}
 
+
 	/**
 	 * Returns a item.
 	 *
@@ -71,6 +75,7 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 		return $this->$key;
 	}
 
+
 	/**
 	 * Determines whether a item exists.
 	 */
@@ -79,6 +84,7 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 		return isset($this->$key);
 	}
 
+
 	/**
 	 * Removes the element from this list.
 	 */
@@ -86,5 +92,4 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	{
 		unset($this->$key);
 	}
-
 }
