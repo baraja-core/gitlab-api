@@ -96,14 +96,13 @@ final class GitLabApi
 		}
 
 		if ($body !== null) {
-			GitLabApiPanel::$baseUrl = $this->baseUrl;
-			GitLabApiPanel::$calls[] = [
+			GitLabApiPanel::addData($this->baseUrl, [
 				'duration' => Helper::timer($requestHash) * 1000,
 				'url' => $url,
 				'isCache' => true,
 				'data' => $data,
 				'body' => $body,
-			];
+			]);
 
 			return $body;
 		}
@@ -139,14 +138,13 @@ final class GitLabApi
 			throw new GitLabApiException(implode("\n", $errorMessages), $errorMessages);
 		}
 
-		GitLabApiPanel::$baseUrl = $this->baseUrl;
-		GitLabApiPanel::$calls[] = [
+		GitLabApiPanel::addData($this->baseUrl, [
 			'duration' => Helper::timer($requestHash) * 1000,
 			'url' => $url,
 			'isCache' => false,
 			'data' => $data,
 			'body' => $body,
-		];
+		]);
 
 		curl_close($curl);
 
@@ -211,14 +209,13 @@ final class GitLabApi
 		$resp = curl_exec($curl);
 
 		if ($resp === false) {
-			GitLabApiPanel::$baseUrl = $this->baseUrl;
-			GitLabApiPanel::$calls[] = [
+			GitLabApiPanel::addData($this->baseUrl, [
 				'duration' => Helper::timer($requestHash) * 1000,
 				'method' => $method,
 				'url' => $url,
 				'data' => $data,
 				'body' => $resp,
-			];
+			]);
 
 			throw new GitLabApiException('[' . $url . ']: Curl return FALSE: ' . Helper::getLastErrorMessage());
 		}
@@ -235,26 +232,24 @@ final class GitLabApi
 				$errorMessages[] = trim($key) . ': ' . json_encode($value);
 			}
 
-			GitLabApiPanel::$baseUrl = $this->baseUrl;
-			GitLabApiPanel::$calls[] = [
+			GitLabApiPanel::addData($this->baseUrl, [
 				'duration' => Helper::timer($requestHash) * 1000,
 				'method' => $method,
 				'url' => $url,
 				'data' => $data,
 				'body' => $body,
-			];
+			]);
 
 			throw new GitLabApiException('[' . $url . ']: ' . implode("\n", $errorMessages), $errorMessages);
 		}
 
-		GitLabApiPanel::$baseUrl = $this->baseUrl;
-		GitLabApiPanel::$calls[] = [
+		GitLabApiPanel::addData($this->baseUrl, [
 			'duration' => Helper::timer($requestHash) * 1000,
 			'method' => $method,
 			'url' => $url,
 			'data' => $data,
 			'body' => $body,
-		];
+		]);
 
 		curl_close($curl);
 
@@ -279,8 +274,8 @@ final class GitLabApi
 
 
 	/**
-	 * @param \stdClass|\stdClass[] $haystack
-	 * @return ApiData|ApiData[]|string|bool|int|float
+	 * @param \stdClass|\stdClass[]|mixed $haystack
+	 * @return ApiData|ApiData[]|mixed
 	 */
 	private function mapToApiData($haystack)
 	{

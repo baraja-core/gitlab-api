@@ -68,6 +68,7 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	/**
 	 * Returns a item.
 	 *
+	 * @param mixed $key
 	 * @return mixed
 	 */
 	public function offsetGet($key)
@@ -78,6 +79,9 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 
 	/**
 	 * Determines whether a item exists.
+	 *
+	 * @param mixed $key
+	 * @return bool
 	 */
 	public function offsetExists($key): bool
 	{
@@ -87,6 +91,8 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 
 	/**
 	 * Removes the element from this list.
+	 *
+	 * @param mixed $key
 	 */
 	public function offsetUnset($key): void
 	{
