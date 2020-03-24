@@ -36,8 +36,11 @@ final class GitLabApi
 	public function __construct(string $token, ?User $user = null)
 	{
 		// Nette User bridge
-		if ($user !== null && $user->isLoggedIn() && \method_exists($identity = $user->getIdentity(), 'getGitLabToken')) {
-			$token = $identity->getGitLabToken() ?? $token;
+		if ($user !== null && $user->isLoggedIn() === true) {
+			$identity = $user->getIdentity();
+			if ($identity instanceof GitLabUser) {
+				$token = $identity->getGitLabToken() ?? $token;
+			}
 		}
 
 		$this->token = $token;
