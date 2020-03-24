@@ -47,7 +47,7 @@ Do sekce `parameters` je potřeba vložit defaultní API token pro spojení s Gi
 
 Příklad:
 
-```neon
+```yaml
 parameters:
    gitLab:
       token: 123-abcDEFghiJKL-789
