@@ -269,10 +269,7 @@ final class GitLabApi
 	{
 		$response = $this->request('projects', null, '1 hour', $token);
 
-		return (\is_array($response) === false
-				&& $response->offsetExists('message')
-				&& $response->message === '401 Unauthorized'
-			) === false;
+		return ($response instanceof ApiData && $response->offsetExists('message') && $response->message === '401 Unauthorized') === false;
 	}
 
 
@@ -295,7 +292,7 @@ final class GitLabApi
 		if ($haystack instanceof \stdClass) {
 			$return = new ApiData;
 
-			foreach ($haystack as $key => $value) {
+			foreach ((array) $haystack as $key => $value) {
 				$return->{$key} = $value;
 			}
 
