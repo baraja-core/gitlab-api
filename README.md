@@ -1,5 +1,5 @@
-GitLab API
-==========
+GitLab API for Nette
+====================
 
 Balík slouží jako transportní vrstva mezi konkrétní aplikací a GitLabem.
 
@@ -26,16 +26,16 @@ Výchozí minimální konfigurace:
 
 ```yaml
 services:
-	gitLabAPI:
-	    factory: Baraja\GitLabApi\GitLabApi(%gitLab.token%)
+   gitLabAPI:
+      factory: Baraja\GitLabApi\GitLabApi(%gitLab.token%)
 
 parameters:
-	gitLab:
-		token: 123-abcDEFghiJKL-789
+   gitLab:
+      token: 123-abcDEFghiJKL-789
 
 tracy:
-	bar:
-		- Baraja\GitLabApi\GitLabApiPanel
+   bar:
+      - Baraja\GitLabApi\GitLabApiPanel
 ```
 
 API token musíte vždy změnit pro Váš uživatelský účet!
@@ -49,18 +49,18 @@ Příklad:
 
 ```neon
 parameters:
-	gitLab:
-		token: 123-abcDEFghiJKL-789
+   gitLab:
+      token: 123-abcDEFghiJKL-789
 ```
 
 Volitelně lze nastavit použití Nette Cache:
 
 ```yaml
 services:
-	gitLabAPI:
-	    factory: Baraja\GitLabApi\GitLabApi(%gitLab.token%)
-        setup:
-            - setCache(@cache.storage)
+   gitLabAPI:
+      factory: Baraja\GitLabApi\GitLabApi(%gitLab.token%)
+      setup:
+         - setCache(@cache.storage)
 ```
 
 Propojení s vlastní GitLab instalací
