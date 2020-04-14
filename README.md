@@ -1,6 +1,8 @@
 GitLab API for Nette
 ====================
 
+![Integrity check](https://github.com/baraja-core/gitlab-api/workflows/Integrity%20check/badge.svg)
+
 Balík slouží jako transportní vrstva mezi konkrétní aplikací a GitLabem.
 
 Pomocí tohoto balíku můžete jednoduchým způsobem pokládat dotazy do GitLabu, detekovat chybové hlášení v Tracy baru a sledovat vytížení požadavků.
