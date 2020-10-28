@@ -10,21 +10,13 @@ final class Helper
 	private const FORCE_ARRAY = 0b0001;
 
 
-	/**
-	 * @throws \Error
-	 */
+	/** @throws \Error */
 	public function __construct()
 	{
 		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
 	}
 
 
-	/**
-	 * Migrated from Nette/Tracy.
-	 *
-	 * @param string|null $name
-	 * @return float
-	 */
 	public static function timer(?string $name = null): float
 	{
 		static $time = [];
@@ -40,8 +32,6 @@ final class Helper
 	 * Migrated from Nette/Utils.
 	 * Decodes a JSON string. Accepts flag Json::FORCE_ARRAY.
 	 *
-	 * @param string $json
-	 * @param int $flags
 	 * @return mixed
 	 * @throws GitLabApiException
 	 */
@@ -68,8 +58,6 @@ final class Helper
 	 * if (!@rename($src, $dst)) {
 	 *    throw new Exception('Unable to move directory: ' . Helper::getLastErrorMessage());
 	 * }
-	 *
-	 * @return string|null
 	 */
 	public static function getLastErrorMessage(): ?string
 	{

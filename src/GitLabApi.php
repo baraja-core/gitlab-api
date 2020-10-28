@@ -12,26 +12,18 @@ use Nette\Security\User;
 
 final class GitLabApi
 {
+	private string $token;
 
-	/** @var string */
-	private $token;
+	private bool $validateToken = false;
 
-	/** @var bool */
-	private $validateToken = false;
+	private ?Cache $cache;
 
-	/** @var Cache|null */
-	private $cache;
-
-	/** @var string */
-	private $baseUrl = 'https://gitlab.com/api/v4/';
+	private string $baseUrl = 'https://gitlab.com/api/v4/';
 
 
 	/**
 	 * For valid service you must set $token or Nette user profile.
 	 * If user profile is not available API will use default $token.
-	 *
-	 * @param string $token
-	 * @param User|null $user
 	 */
 	public function __construct(string $token, ?User $user = null)
 	{
@@ -47,20 +39,13 @@ final class GitLabApi
 	}
 
 
-	/**
-	 * @param string $baseUrl
-	 */
 	public function setBaseUrl(string $baseUrl): void
 	{
 		$this->baseUrl = rtrim($baseUrl, '/') . '/';
 	}
 
 
-	/**
-	 * Use Nette Cache for storage API responses.
-	 *
-	 * @param IStorage $IStorage
-	 */
+	/** Use Nette Cache for storage API responses. */
 	public function setCache(IStorage $IStorage): void
 	{
 		$this->cache = new Cache($IStorage, 'gitlab-api');
@@ -68,10 +53,7 @@ final class GitLabApi
 
 
 	/**
-	 * @param string $url
 	 * @param string[]|null $data
-	 * @param string $cache
-	 * @param string|null $token
 	 * @return ApiData|ApiData[]
 	 * @throws GitLabApiException
 	 */
@@ -91,13 +73,12 @@ final class GitLabApi
 		$hash = md5(json_encode([$url, $data, $token]));
 		$body = $this->cache === null ? null : $this->cache->load($hash);
 
-		if (!isset($_SERVER['REMOTE_ADDR'])) {
+		if (PHP_SAPI === 'cli') {
 			echo "\e[0;32m" . '[GitLab | URL: ' . "\e[0m\e[0;33m" . $url . "\e[0m\e[0;32m"
 				. ($data !== null ? ', DATA: ' . json_encode($data) : '')
 				. ' | TOKEN: ' . json_encode($token)
 				. ']' . "\e[0m\n";
 		}
-
 		if ($body !== null) {
 			GitLabApiPanel::addData($this->baseUrl, [
 				'duration' => Helper::timer($requestHash) * 1000,
@@ -120,7 +101,6 @@ final class GitLabApi
 			CURLOPT_HEADER => 1,
 			CURLINFO_HEADER_OUT => true,
 		]);
-
 		curl_setopt($curl, CURLOPT_HTTPHEADER, [
 			'PRIVATE-TOKEN: ' . $token,
 		]);
@@ -130,10 +110,8 @@ final class GitLabApi
 		$rawData = substr($resp, $headerSize);
 
 		$body = $this->mapToApiData(Helper::decode($rawData));
-
 		if (isset($body['error'])) {
 			$errorMessages = [];
-
 			foreach ($body as $key => $value) {
 				$errorMessages[] = trim($key) . ': ' . json_encode($value);
 			}
@@ -162,10 +140,7 @@ final class GitLabApi
 
 
 	/**
-	 * @param string $url
 	 * @param string[]|null $data
-	 * @param string $method
-	 * @param string|null $token
 	 * @return ApiData|ApiData[]
 	 * @throws GitLabApiException
 	 */
@@ -182,7 +157,7 @@ final class GitLabApi
 		$requestHash = 'url' . md5($url);
 		Helper::timer($requestHash);
 
-		if (!isset($_SERVER['REMOTE_ADDR'])) {
+		if (PHP_SAPI === 'cli') {
 			echo "\e[0;32m" . '[GitLab | URL: ' . "\e[0m\e[0;33m" . $url . "\e[0m\e[0;32m"
 				. ($data !== null ? ', DATA: ' . json_encode($data) : '')
 				. ' | TOKEN: ' . json_encode($token)
@@ -190,7 +165,6 @@ final class GitLabApi
 		}
 
 		$fullUrl = rtrim($this->baseUrl, '/') . '/' . ltrim($url, '/');
-
 		$configRequest = [
 			CURLOPT_CUSTOMREQUEST => $method,
 			CURLOPT_RETURNTRANSFER => 1,
@@ -210,7 +184,6 @@ final class GitLabApi
 		]);
 
 		$resp = curl_exec($curl);
-
 		if ($resp === false) {
 			GitLabApiPanel::addData($this->baseUrl, [
 				'duration' => Helper::timer($requestHash) * 1000,
@@ -225,12 +198,9 @@ final class GitLabApi
 
 		$headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
 		$rawData = substr((string) $resp, $headerSize);
-
 		$body = $this->mapToApiData(Helper::decode($rawData));
-
 		if (isset($body['error'])) {
 			$errorMessages = [];
-
 			foreach ($body as $key => $value) {
 				$errorMessages[] = trim($key) . ': ' . json_encode($value);
 			}
@@ -261,8 +231,6 @@ final class GitLabApi
 
 
 	/**
-	 * @param string $token
-	 * @return bool
 	 * @throws GitLabApiException
 	 */
 	public function validateToken(string $token): bool
@@ -281,17 +249,14 @@ final class GitLabApi
 	{
 		if (\is_array($haystack)) {
 			$return = [];
-
 			foreach ($haystack as $key => $value) {
 				$return[$key] = $this->mapToApiData($value);
 			}
 
 			return $return;
 		}
-
 		if ($haystack instanceof \stdClass) {
 			$return = new ApiData;
-
 			foreach ((array) $haystack as $key => $value) {
 				$return->{$key} = $value;
 			}

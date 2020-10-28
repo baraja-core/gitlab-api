@@ -12,13 +12,11 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 
 	/**
 	 * @param mixed[] $arr
-	 * @param bool $recursive
 	 * @return ApiData
 	 */
 	public static function from(array $arr, bool $recursive = true): self
 	{
 		$obj = new self;
-
 		foreach ($arr as $key => $value) {
 			if ($recursive && is_array($value)) {
 				$obj->$key = static::from($value, true);
@@ -31,18 +29,14 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	}
 
 
-	/**
-	 * Returns an iterator over all items.
-	 */
+	/** Returns an iterator over all items. */
 	public function getIterator(): \RecursiveArrayIterator
 	{
 		return new \RecursiveArrayIterator((array) $this);
 	}
 
 
-	/**
-	 * Returns items count.
-	 */
+	/** Returns items count. */
 	public function count(): int
 	{
 		return count((array) $this);

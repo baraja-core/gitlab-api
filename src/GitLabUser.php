@@ -7,11 +7,6 @@ namespace Baraja\GitLabApi;
 
 interface GitLabUser
 {
-
-	/**
-	 * Return current user GitLab token.
-	 *
-	 * @return string|null
-	 */
+	/** Return current user GitLab token. */
 	public function getGitLabToken(): ?string;
 }

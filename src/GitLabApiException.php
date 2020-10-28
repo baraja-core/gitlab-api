@@ -17,11 +17,10 @@ class GitLabApiException extends \Exception
 	 *
 	 * @var string[]
 	 */
-	private $errorConfigs;
+	private array $errorConfigs;
 
 
 	/**
-	 * @param string $message
 	 * @param string[] $errorConfigs
 	 * @throws GitLabApiException
 	 */
@@ -39,14 +38,11 @@ class GitLabApiException extends \Exception
 
 
 	/**
-	 * @param string $token
 	 * @throws GitLabApiException
 	 */
 	public static function tokenIsInvalid(string $token): void
 	{
-		throw new self(
-			'GitLab token "' . $token . '" is invalid.'
-		);
+		throw new self('GitLab token "' . $token . '" is invalid.');
 	}
 
 
@@ -59,9 +55,6 @@ class GitLabApiException extends \Exception
 	}
 
 
-	/**
-	 * @return string
-	 */
 	public function getErrorType(): string
 	{
 		if ($this->isKey('error')) {
@@ -72,30 +65,18 @@ class GitLabApiException extends \Exception
 	}
 
 
-	/**
-	 * @return bool
-	 */
 	public function isDefaultError(): bool
 	{
 		return $this->getErrorType() === self::ERROR_ERROR;
 	}
 
 
-	/**
-	 * @param string $key
-	 * @return bool
-	 */
 	public function isKey(string $key): bool
 	{
 		return isset($this->errorConfigs[$key]);
 	}
 
 
-	/**
-	 * @param string $key
-	 * @param string|null $default
-	 * @return string|null
-	 */
 	public function getKey(string $key, ?string $default = null): ?string
 	{
 		if ($this->isKey($key)) {
