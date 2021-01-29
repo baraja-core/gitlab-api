@@ -7,7 +7,7 @@ namespace Baraja\GitLabApi;
 
 final class Helper
 {
-	private const FORCE_ARRAY = 0b0001;
+	private const FORCE_ARRAY = 0b0_001;
 
 
 	/** @throws \Error */

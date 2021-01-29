@@ -81,7 +81,7 @@ final class GitLabApi
 		}
 		if ($body !== null) {
 			GitLabApiPanel::addData($this->baseUrl, [
-				'duration' => Helper::timer($requestHash) * 1000,
+				'duration' => Helper::timer($requestHash) * 1_000,
 				'url' => $url,
 				'isCache' => true,
 				'data' => $data,
@@ -120,7 +120,7 @@ final class GitLabApi
 		}
 
 		GitLabApiPanel::addData($this->baseUrl, [
-			'duration' => Helper::timer($requestHash) * 1000,
+			'duration' => Helper::timer($requestHash) * 1_000,
 			'url' => $url,
 			'isCache' => false,
 			'data' => $data,
@@ -186,7 +186,7 @@ final class GitLabApi
 		$resp = curl_exec($curl);
 		if ($resp === false) {
 			GitLabApiPanel::addData($this->baseUrl, [
-				'duration' => Helper::timer($requestHash) * 1000,
+				'duration' => Helper::timer($requestHash) * 1_000,
 				'method' => $method,
 				'url' => $url,
 				'data' => $data,
@@ -206,7 +206,7 @@ final class GitLabApi
 			}
 
 			GitLabApiPanel::addData($this->baseUrl, [
-				'duration' => Helper::timer($requestHash) * 1000,
+				'duration' => Helper::timer($requestHash) * 1_000,
 				'method' => $method,
 				'url' => $url,
 				'data' => $data,
@@ -217,7 +217,7 @@ final class GitLabApi
 		}
 
 		GitLabApiPanel::addData($this->baseUrl, [
-			'duration' => Helper::timer($requestHash) * 1000,
+			'duration' => Helper::timer($requestHash) * 1_000,
 			'method' => $method,
 			'url' => $url,
 			'data' => $data,
