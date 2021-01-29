@@ -51,7 +51,7 @@ class GitLabApiPanel implements IBarPanel
 			foreach (self::$calls as $call) {
 				$table .= '<tr>'
 					. '<td>' . number_format($call['duration'], 2, '.', ' ') . '&nbsp;ms'
-					. (($call['isCache'] ?? false) ? '<br><small style="color:green">cache</small>' : '')
+					. ($call['isCache'] ?? false ? '<br><small style="color:green">cache</small>' : '')
 					. '</td>'
 					. '<td><span style="color:blue">' . ($call['method'] ?? 'GET') . '</span>&nbsp;' . $call['url'] . '</td>'
 					. '<td>' . Dumper::toHtml($call['data']) . '</td>'

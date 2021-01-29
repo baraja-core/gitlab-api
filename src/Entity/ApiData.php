@@ -9,7 +9,6 @@ use Baraja\GitLabApi\GitLabApiException;
 
 class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAggregate
 {
-
 	/**
 	 * @param mixed[] $arr
 	 * @return ApiData
