@@ -32,10 +32,9 @@ final class Helper
 	 * Migrated from Nette/Utils.
 	 * Decodes a JSON string. Accepts flag Json::FORCE_ARRAY.
 	 *
-	 * @return mixed
 	 * @throws GitLabApiException
 	 */
-	public static function decode(string $json, int $flags = 0)
+	public static function decode(string $json, int $flags = 0): mixed
 	{
 		$forceArray = (bool) ($flags & self::FORCE_ARRAY);
 		$value = json_decode($json, $forceArray, 512, JSON_BIGINT_AS_STRING);

@@ -11,14 +11,13 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 {
 	/**
 	 * @param mixed[] $arr
-	 * @return ApiData
 	 */
 	public static function from(array $arr, bool $recursive = true): self
 	{
 		$obj = new self;
 		foreach ($arr as $key => $value) {
 			if ($recursive && is_array($value)) {
-				$obj->$key = static::from($value, true);
+				$obj->$key = static::from($value);
 			} else {
 				$obj->$key = $value;
 			}
@@ -45,11 +44,9 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	/**
 	 * Replaces or appends a item.
 	 *
-	 * @param mixed $key
-	 * @param mixed $value
 	 * @throws GitLabApiException
 	 */
-	public function offsetSet($key, $value): void
+	public function offsetSet(mixed $key, mixed $value): void
 	{
 		if (!is_scalar($key)) { // prevents null
 			throw new GitLabApiException('Key must be either a string or an integer, "' . gettype($key) . '" given.');
@@ -58,36 +55,21 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	}
 
 
-	/**
-	 * Returns a item.
-	 *
-	 * @param mixed $key
-	 * @return mixed
-	 */
-	public function offsetGet($key)
+	public function offsetGet(mixed $key): mixed
 	{
 		return $this->$key;
 	}
 
 
-	/**
-	 * Determines whether a item exists.
-	 *
-	 * @param mixed $key
-	 * @return bool
-	 */
-	public function offsetExists($key): bool
+	/** Determines whether a item exists. */
+	public function offsetExists(mixed $key): bool
 	{
 		return isset($this->$key);
 	}
 
 
-	/**
-	 * Removes the element from this list.
-	 *
-	 * @param mixed $key
-	 */
-	public function offsetUnset($key): void
+	/** Removes the element from this list. */
+	public function offsetUnset(mixed $key): void
 	{
 		unset($this->$key);
 	}
