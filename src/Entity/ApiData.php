@@ -44,9 +44,11 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	/**
 	 * Replaces or appends a item.
 	 *
+	 * @param mixed $key
+	 * @param mixed $value
 	 * @throws GitLabApiException
 	 */
-	public function offsetSet(mixed $key, mixed $value): void
+	public function offsetSet($key, $value): void
 	{
 		if (!is_scalar($key)) { // prevents null
 			throw new GitLabApiException('Key must be either a string or an integer, "' . gettype($key) . '" given.');
@@ -55,21 +57,34 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	}
 
 
-	public function offsetGet(mixed $key): mixed
+	/**
+	 * Returns a item.
+	 *
+	 * @param mixed $key
+	 */
+	public function offsetGet($key): mixed
 	{
 		return $this->$key;
 	}
 
 
-	/** Determines whether a item exists. */
-	public function offsetExists(mixed $key): bool
+	/**
+	 * Determines whether a item exists.
+	 *
+	 * @param mixed $key
+	 */
+	public function offsetExists($key): bool
 	{
 		return isset($this->$key);
 	}
 
 
-	/** Removes the element from this list. */
-	public function offsetUnset(mixed $key): void
+	/**
+	 * Removes the element from this list.
+	 *
+	 * @param mixed $key
+	 */
+	public function offsetUnset($key): void
 	{
 		unset($this->$key);
 	}
