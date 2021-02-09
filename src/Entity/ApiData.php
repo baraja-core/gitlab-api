@@ -61,8 +61,9 @@ class ApiData extends \stdClass implements \ArrayAccess, \Countable, \IteratorAg
 	 * Returns a item.
 	 *
 	 * @param mixed $key
+	 * @return mixed
 	 */
-	public function offsetGet($key): mixed
+	public function offsetGet($key)
 	{
 		return $this->$key;
 	}
