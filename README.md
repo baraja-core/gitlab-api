@@ -3,33 +3,33 @@ GitLab API for Nette
 
 ![Integrity check](https://github.com/baraja-core/gitlab-api/workflows/Integrity%20check/badge.svg)
 
-Balík slouží jako transportní vrstva mezi konkrétní aplikací a GitLabem.
+This package serves as a transport layer between a specific application and GitLab.
 
-Pomocí tohoto balíku můžete jednoduchým způsobem pokládat dotazy do GitLabu, detekovat chybové hlášení v Tracy baru a sledovat vytížení požadavků.
+With this package, you can easily submit queries to GitLab, detect error messages in the Tracy bar, and monitor request load.
 
-Požadavky typu `GET` se automaticky cachují na `12 hodin`, pokud není řečeno jinak.
+Requests of type `GET` are automatically cached for `12 hours` unless told otherwise.
 
-Požadavky typu `POST`, `PUT`, `DELETE` a další změnové akce se necachují vůbec a vždy přenášíme veškerá data znovu.
+Requests like `POST`, `PUT`, `DELETE` and other change actions are not cached at all and we always retransmit all data.
 
 ![GitLab Tracy panel](/src/gitlab-api-tracy.png "GitLab Tracy panel")
 
-Instalace
+Installation
 ---------
 
-Použijte příkaz Composeru:
+Use the Composer command:
 
-```shell
+``shell
 composer require baraja-core/gitlab-api
 ```
 
-Dále je potřeba nastavit konfiguraci služby pro Nette v NEON souboru.
+Next, you need to set the service configuration for Nette in the NEON file.
 
-Výchozí minimální konfigurace:
+Default minimum configuration:
 
 ```yaml
 services:
    gitLabAPI:
-      factory: Baraja\GitLabApi\GitLabApi(%gitLab.token%)
+      factory: baraja\GitLabApi\GitLabApi(%gitLab.token%)
 
 parameters:
    gitLab:
@@ -40,14 +40,14 @@ tracy:
       - Baraja\GitLabApi\GitLabApiPanel
 ```
 
-API token musíte vždy změnit pro Váš uživatelský účet!
+You must always change the API token for your user account!
 
-Konfigurace
+Configuration
 -----------
 
-Do sekce `parameters` je potřeba vložit defaultní API token pro spojení s GitLabem:
+In the `parameters` section, you need to enter the default API token to connect to GitLab:
 
-Příklad:
+Example:
 
 ```yaml
 parameters:
@@ -55,19 +55,19 @@ parameters:
       token: 123-abcDEFghiJKL-789
 ```
 
-Volitelně lze nastavit použití Nette Cache:
+Optionally, you can set to use Nette Cache:
 
 ```yaml
 services:
    gitLabAPI:
-      factory: Baraja\GitLabApi\GitLabApi(%gitLab.token%)
+      factory: baraja\GitLabApi\GitLabApi(%gitLab.token%)
       setup:
          - setCache(@cache.storage)
 ```
 
-Propojení s vlastní GitLab instalací
+Linking to a custom GitLab installation
 ------------------------------------
 
-V některých případech je potřeba propojit API na vnitřní firemní síť, kde je GitLab hostován. K tomu slouží metoda `setBaseUrl()` s cestou k doméně.
+In some cases, you need to link the API to the internal corporate network where GitLab is hosted. This is done by using the `setBaseUrl()` method with a domain path.
 
-Předaným parametrem může být například řetězec `'https://gitlab.com/api/v4/'`.
+The passed parameter can be, for example, the string `'https://gitlab.com/api/v4/'`.
