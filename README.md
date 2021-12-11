@@ -18,7 +18,7 @@ Installation
 
 Use the Composer command:
 
-``shell
+```shell
 composer require baraja-core/gitlab-api
 ```
 
